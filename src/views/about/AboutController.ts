@@ -1,24 +1,31 @@
-import {Vue} from 'vue-property-decorator';
+import {Emit, Prop, Vue} from 'vue-property-decorator';
+import Component from "vue-class-component";
 
+@Component
 export default class AboutController extends Vue {
 
-  public beforeCreate():void {
+  public thing: string = "asdasd";
+
+  public beforeCreate(): void {
     console.log("Before created")
   }
 
-  public created():void {
+  public created(): void {
     console.log("created")
   }
 
-  public beforeMount():void {
+  public beforeMount(): void {
     console.log("Before mount")
   }
 
-  public mounted():void {
-    console.log("mount")
+  public mounted(): void {
+    console.log("mount");
+    setInterval(this.updateThing, 1000);
   }
 
-  get thing():string {
-    return new Date().toLocaleTimeString();
+  @Emit()
+  public updateThing() {
+    this.thing = new Date().toLocaleTimeString();
   }
+
 }
