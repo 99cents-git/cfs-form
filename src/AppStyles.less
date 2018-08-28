@@ -4,6 +4,7 @@
   position: absolute;
   width: 100%;
 }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -11,12 +12,69 @@
 }
 
 #nav {
-  padding: 30px;
+  display: flex;
+  justify-content: space-around;
+  padding: 1vw 0 40px 0;
+
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    display: flex;
+    position: relative;
+    width: 26px;
+    min-height: 26px;
+    border: 3px solid red;
+    background: white;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 11;
+    text-decoration: none;
+    color: red;
+
+    span {
+      position: relative;
+      top: 30px;
+    }
+
+    &:after {
+      position: absolute;
+      width: 32vw;
+      height: 4px;
+      background-color: rgba(255,0,0,0.2);
+      pointer-events: none;
+      content: " ";
+      left: 100%;
+      z-index: 9;
+    }
+
+    &:last-child {
+      &:after {
+        width: 0;
+      }
+    }
+
+    &.done {
+      &:before {
+        content: "✔";
+        position: absolute;
+      }
+      &:after {
+        background-color: rgba(255,0,0,1);
+      }
+    }
+
     &.router-link-exact-active {
-      color: #42b983;
+     // background-color: #42b983;
+      &:before {
+        width: 20px;
+        min-height: 20px;
+        background: red;
+        content: " ";
+        position: absolute;
+        border-radius: 100%;
+        z-index: 10;
+      }
+
+
     }
   }
 }

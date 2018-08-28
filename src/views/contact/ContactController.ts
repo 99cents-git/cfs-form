@@ -2,10 +2,10 @@ import {Vue} from 'vue-property-decorator';
 import Component from "vue-class-component";
 
 @Component
-export default class AboutController extends Vue {
+export default class ContactController extends Vue {
 
   public beforeCreate(): void {
-    
+
   }
 
   public created(): void {
