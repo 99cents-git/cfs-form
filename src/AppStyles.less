@@ -1,20 +1,41 @@
 @import "../node_modules/vue2-animate/src/less/vue2-animate.less";
 
 .fade-enter, .fade-leave-to {
-  position: absolute;
+  position: fixed;
   width: 100%;
+}
+
+body, html {
+  overflow: hidden !important;
 }
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden !important;
+}
+
+#pages {
+  padding-top: 100px;
+  margin: 0 auto;
+  overflow: hidden !important;
+
+  .step {
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+  }
 }
 
 #nav {
+
   display: flex;
   justify-content: space-around;
-  padding: 1vw 0 40px 0;
+  padding: 20px 0 30px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: #ffffff;
 
   a {
     display: flex;
@@ -37,7 +58,7 @@
 
     &:after {
       position: absolute;
-      width: 32vw;
+      width: 25vw;
       height: 4px;
       background-color: rgba(255,0,0,0.2);
       pointer-events: none;
@@ -73,8 +94,6 @@
         border-radius: 100%;
         z-index: 10;
       }
-
-
     }
   }
 }

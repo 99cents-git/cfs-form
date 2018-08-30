@@ -1,5 +1,5 @@
 <template>
-  <div class="step2">
+  <div class="step step2">
     <form data-abide novalidate id="step2">
       <div data-abide-error class="alert callout" style="display: none;">
         <p><i class="fi-alert"></i> There are some errors in your form.</p>
@@ -18,32 +18,47 @@
           </div>
           <div class="cell large-1 small-6">
             <label>Initials
-              <input type="text" placeholder="Enter your initials" required>
+              <input name="initials" type="text" placeholder="Enter your initials" required>
             </label>
           </div>
           <div class="cell large-5 small-12">
             <label>First Name
-              <input type="text" placeholder="Enter your first name" required>
+              <input name="firstName" type="text" placeholder="Enter your first name" required>
             </label>
           </div>
           <div class="cell large-5 small-12">
             <label>Last Name
-              <input type="text" placeholder="Enter your last name" required>
+              <input name="lastName" type="text" placeholder="Enter your last name" required>
             </label>
           </div>
           <div class="cell large-7 small-12">
             <label>Designation
-              <input type="text" placeholder="Enter your designation" required>
+              <input name="designation" type="text" placeholder="Enter your designation" required>
             </label>
           </div>
           <div class="cell large-3 small-12">
             <label>ID Number
-              <input type="number" minlength="12" maxlength="16" placeholder="Enter your ID Number" required>
+              <input name="idNumber" type="number" minlength="12" maxlength="16" placeholder="Enter your ID Number" required>
             </label>
           </div>
           <div class="cell large-2 small-12">
             <label>Date of Birth
-              <input type="text" pattern="day_month_year" placeholder="DD/MM/YYYY" required>
+              <input name="dateOfBirth" type="text" pattern="day_month_year" placeholder="DD/MM/YYYY" required>
+            </label>
+          </div>
+          <div class="cell large-1 small-3">
+            <input type="checkbox" required>
+          </div>
+          <div class="cell large-9 small-9">
+            <label>By checking this box I hereby declare that, as a material warranty, I am authorised to act on behalf
+              of the Applicant and to bind the Applicant’s credit, and that I have read the terms and conditions, and
+              accept them as binding on me and on the Applicant. The Applicant hereby warrants that it regards the terms
+              and conditions of this Agreement as binding upon it.
+            </label>
+          </div>
+          <div class="cell large-2 small-12">
+            <label>Today's date
+              <input name="signedDate" type="text" pattern="day_month_year" placeholder="DD/MM/YYYY" required>
             </label>
           </div>
         </div>
@@ -59,7 +74,8 @@
   </div>
 </template>
 <script lang="ts">
-  import AboutController from './AboutController';
-  export default AboutController;
+  import Step2Controller from './Step2Controller';
+
+  export default Step2Controller;
 </script>
-<style scoped src="./AboutStyles.less"></style>
+<style scoped src="./Step2Styles.less"></style>

@@ -1,17 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :class="{done: !!step1Done}" to="/"><span>Business&nbsp;Details</span></router-link>
-      <router-link :class="{done: !!step2Done}" ref="about" to="/about"><span>About</span></router-link>
-      <router-link ref="contact" to="/contact"><span>Contact</span></router-link>
+      <router-link v-for="formstep in underlyingData.status" :class="{done: formstep.complete}" :to="formstep.nextStep"><span>{{formstep.stepDisplayName}}</span></router-link>
     </div>
-    <transition name="fade" enter-active-class="animated slideInLeft"
-    leave-active-class="animated slideOutRight" >
-      <router-view/>
-    </transition>
+    <div id="pages">
+      <transition name="fade" class="animated" :enter-active-class="inClass" :leave-active-class="outClass">
+        <router-view v-on:step-invalid="markStepInvalid" v-on:step-valid="markStepValid" v-on:step-done="markStepComplete" v-on:step-notdone="markStepIncomplete" v-on:on-submit="saveStepData" />
+      </transition>
+    </div>
   </div>
 </template>
-<style scoped src="./AppStyles.less"></style>
+<style src="./AppStyles.less"></style>
 <script lang="ts">
   import AppController from './AppController';
   export default AppController;

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/home/Home.vue'
+import Step1 from './views/step1/Step1.vue'
 
 Vue.use(Router);
 
@@ -8,25 +8,24 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: '/step1',
+      name: 'step1',
+      component: Step1
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/about/About.vue')
+      path: '/step2',
+      name: 'step2',
+      component: () => import(/* webpackChunkName: "step2" */ './views/step2/Step2.vue')
     },
     {
-      path: '/contact',
-      name: 'contact',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/contact/Contact.vue')
+      path: '/step3',
+      name: 'step3',
+      component: () => import(/* webpackChunkName: "step3" */ './views/step3/Step3.vue')
+    },
+    {
+      path: '/step4',
+      name: 'step4',
+      component: () => import(/* webpackChunkName: "step4" */ './views/step4/Step4.vue')
     }
   ]
 })
