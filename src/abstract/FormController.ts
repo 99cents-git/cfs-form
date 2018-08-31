@@ -1,14 +1,22 @@
-import {Emit, Vue} from 'vue-property-decorator';
+import {Emit, Prop, Vue} from 'vue-property-decorator';
 import Component from "vue-class-component";
 
-declare var $:any;
+declare var $: any;
 
 @Component
 export default class FormController extends Vue {
 
-  private formValid:boolean = false;
+  @Prop() formData: any;
+  private formValid: boolean = false;
 
   public mounted(): void {
+    if (this.formData && this.formData[`${this.$router.currentRoute.name}`]) {
+      Object.entries(this.formData[`${this.$router.currentRoute.name}`]).forEach((_key) => {
+        let _foundInput:any = $(`[name='${_key[0]}']`);
+        let _foundValue:any = _key[1];
+        _foundInput.val(_foundValue)
+      });
+    }
     $(document).foundation();
     $(document)
       .on("forminvalid.zf.abide", this.attachedFormInvalid)
@@ -17,7 +25,7 @@ export default class FormController extends Vue {
   }
 
   @Emit('on-submit')
-  public onSubmit(ev:any) {
+  public onSubmit(ev: any) {
     this.attachedFormComplete();
     console.log("submitting");
   }
@@ -29,7 +37,7 @@ export default class FormController extends Vue {
   }
 
   @Emit('step-invalid')
-  public attachedFormInvalid(ev:any, frm:any):void {
+  public attachedFormInvalid(ev: any, frm: any): void {
     console.log("form is invalid");
     this.formValid = false;
   }
@@ -40,7 +48,7 @@ export default class FormController extends Vue {
   }
 
   @Emit('step-notdone')
-  public attachedFormIncomplete():void {
+  public attachedFormIncomplete(): void {
     console.log("form is incomplete");
   }
 

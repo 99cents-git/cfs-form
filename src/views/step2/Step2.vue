@@ -1,13 +1,10 @@
 <template>
   <div class="step step2">
     <form data-abide novalidate id="step2">
-      <div data-abide-error class="alert callout" style="display: none;">
-        <p><i class="fi-alert"></i> There are some errors in your form.</p>
-      </div>
       <div class="grid-container">
         <div class="grid-x grid-margin-x">
           <div class="cell large-1 small-6">
-            <label for="title">Title <select name="title" required id="title">
+            <label for="title">Title * <select name="title" required id="title">
               <option value=""></option>
               <option value="mister">Mr</option>
               <option value="ms">Ms</option>
@@ -17,48 +14,90 @@
             </label>
           </div>
           <div class="cell large-1 small-6">
-            <label>Initials
-              <input name="initials" type="text" placeholder="Enter your initials" required>
+            <label>Initials *
+              <input name="initials" type="text" required>
             </label>
           </div>
           <div class="cell large-5 small-12">
-            <label>First Name
-              <input name="firstName" type="text" placeholder="Enter your first name" required>
+            <label>First Name *
+              <input name="firstName" type="text" required>
             </label>
           </div>
           <div class="cell large-5 small-12">
-            <label>Last Name
-              <input name="lastName" type="text" placeholder="Enter your last name" required>
+            <label>Last Name *
+              <input name="lastName" type="text" required>
             </label>
           </div>
           <div class="cell large-7 small-12">
-            <label>Designation
-              <input name="designation" type="text" placeholder="Enter your designation" required>
+            <label>Designation *
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="user-tie" size="lg"/></span>
+                <input class="input-group-field" name="designation" type="text" required>
+              </div>
             </label>
           </div>
           <div class="cell large-3 small-12">
-            <label>ID Number
-              <input name="idNumber" type="number" minlength="12" maxlength="16" placeholder="Enter your ID Number" required>
+            <label>ID Number *
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="passport" size="lg"/></span>
+                <input class="input-group-field" name="idNumber" type="number" minlength="13" maxlength="13" placeholder="13-digit Number" required>
+              </div>
             </label>
           </div>
           <div class="cell large-2 small-12">
-            <label>Date of Birth
-              <input name="dateOfBirth" type="text" pattern="day_month_year" placeholder="DD/MM/YYYY" required>
+            <label>Date of Birth *
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="calendar-alt" size="lg"/></span>
+                <input name="dateOfBirth" class="input-group-field" type="text" pattern="day_month_year" placeholder="DD/MM/YYYY" required>
+              </div>
             </label>
           </div>
-          <div class="cell large-1 small-3">
-            <input type="checkbox" required>
+        </div>
+      </div>
+      <div class="grid-container">
+        <div class="explanation">
+          In order to process your application, you will need to upload the following supporting documents:
+          <ul>
+            <li><span class="list-done"><font-awesome-icon :icon="!idDone ? 'times' : 'check'"/></span>Copy or photo of your green,
+              barcoded ID
+            </li>
+            <li><span class="list-done"><font-awesome-icon :icon="!residenceDone ? 'times' : 'check'"/></span>Proof of residence</li>
+            <li><span class="list-done"><font-awesome-icon :icon="!bankDone ? 'times' : 'check'"/></span>Proof of bank details (cancelled
+              cheque or letter from bank or bank statement)
+            </li>
+          </ul>
+        </div>
+        <div class="grid-x grid-margin-x">
+          <div class="cell large-3 small-6 ">
+            <label for="idDocumentUpload" class="button">Upload ID Document</label>
+            <input type="file" id="idDocumentUpload" class="show-for-sr">
           </div>
-          <div class="cell large-9 small-9">
-            <label>By checking this box I hereby declare that, as a material warranty, I am authorised to act on behalf
+          <div class="cell large-3 small-6 ">
+            <label for="residenceUpload" class="button">Upload Proof of Residence</label>
+            <input type="file" id="residenceUpload" class="show-for-sr">
+          </div>
+          <div class="cell large-3 small-6 ">
+            <label for="bankUpload" class="button">Upload Proof of Banking</label>
+            <input type="file" id="bankUpload" class="show-for-sr">
+          </div>
+        </div>
+      </div>
+      <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+          <div class="cell large-10 small-9">
+            <label class="checkbox-label">              <input type="checkbox" required>
+              By checking this box I hereby declare that, as a material warranty, I am authorised to act on behalf
               of the Applicant and to bind the Applicant’s credit, and that I have read the terms and conditions, and
               accept them as binding on me and on the Applicant. The Applicant hereby warrants that it regards the terms
               and conditions of this Agreement as binding upon it.
             </label>
           </div>
           <div class="cell large-2 small-12">
-            <label>Today's date
-              <input name="signedDate" type="text" pattern="day_month_year" placeholder="DD/MM/YYYY" required>
+            <label>Today's date *
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="calendar-alt" size="lg"/></span>
+              <input class="input-group-field" name="signedDate" type="text" pattern="day_month_year" placeholder="DD/MM/YYYY" required>
+              </div>
             </label>
           </div>
         </div>

@@ -2,6 +2,7 @@ import {Vue} from 'vue-property-decorator';
 import Component from "vue-class-component";
 import router from './router';
 
+
 declare var $: any;
 
 interface FormRealtimeData {
@@ -74,23 +75,27 @@ export default class AppController extends Vue {
     return <number>parseInt(_step.slice(-1));
   }
 
-  private formToJson(_form:HTMLFormElement):any {
-    return [].reduce.call(_form.elements, (data:any, element:any) => {
+  private formToJson(_form: HTMLFormElement): any {
+    return [].reduce.call(_form.elements, (data: any, element: any) => {
       data[element.name] = element.value;
       return data;
     }, {});
   }
 
-  public markStepInvalid(_data: any, ...args:[]): void {
+  public markStepInvalid(_data: any, ...args: []): void {
+    console.log();
     console.log(this.formToJson(args[0][0]));
-    this.concatFormData(this.formToJson(args[0][0]));
+    this.concatFormData(_data.target.id, this.formToJson(args[0][0]));
     let _foundStep = this.findStepInArray(_data);
     _foundStep.valid = false;
     _foundStep.complete = false;
   }
 
-  private concatFormData(_data:any):void {
-    Object.assign(this.allFormData, _data);
+  private concatFormData(_formId: string, _data: any): void {
+    if (!this.allFormData[_formId]) {
+      this.allFormData[_formId] = {}
+    }
+    Object.assign(this.allFormData[_formId], _data);
     console.log(this.allFormData);
   }
 
@@ -115,5 +120,9 @@ export default class AppController extends Vue {
 
   public saveStepData(_data: any): void {
     console.log(_data.target.id);
+  }
+
+  get fetchAllFormData():any {
+    return this.allFormData;
   }
 }

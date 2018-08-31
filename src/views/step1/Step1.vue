@@ -1,117 +1,142 @@
 <template>
   <div class="step step1">
     <form data-abide novalidate id="step1">
-      <div data-abide-error class="alert callout" style="display: none;">
-        <p><i class="fi-alert"></i> There are some errors in your form.</p>
-      </div>
       <div class="grid-container">
         <div class="grid-x grid-margin-x">
           <div class="cell medium-6 small-12">
             <label>Registered Name of Business *
-              <input type="text" name="registeredName" placeholder="Please enter the name of your business." required>
+              <input type="text" name="registeredName" required>
             </label>
           </div>
           <div class="cell medium-6 small-12">
             <label>Trading Name
-              <input type="text" name="tradingName" placeholder="Please enter the trading name of your business.">
+              <input type="text" name="tradingName">
             </label>
           </div>
           <div class="cell medium-6 small-12">
             <label>Business Registration Number *
-              <input type="text" name="businessRegistrationNumber" placeholder="Please enter your business registration number." required>
+              <input type="text" name="businessRegistrationNumber" required>
             </label>
           </div>
           <div class="cell medium-6 small-12">
-            <label>VAT Registration Number *
-              <input maxlength="12" name="vatNumber" type="text" placeholder="Please enter your VAT number." required>
+            <label>VAT Registration Number
+              <input maxlength="12" name="vatNumber" type="text" placeholder="10-digit Number">
             </label>
           </div>
           <!-- Business address -->
           <div class="cell medium-12">
             <label>Business Address *
-              <textarea type="text" name="businessAddress" placeholder="Please enter your business address." required maxlength="200" rows="2"></textarea>
+              <textarea type="text" name="businessAddress" required maxlength="200" rows="2"></textarea>
             </label>
           </div>
           <div class="cell medium-3 small-6">
             <label>Postal Code *
-              <input maxlength="4" name="businessPostalCode" type="number" placeholder="Enter your postal code" required>
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="envelope" size="lg"/></span>
+                <input minlength="4" maxlength="4" class="input-group-field" name="businessPostalCode" type="number" placeholder="4-digit Number" required>
+              </div>
             </label>
           </div>
           <div class="cell medium-9 small-12">
-            <label>Province * <select name="businessProvince" required id="province">
-              <option value=""></option>
-              <option value="Western Cape">Western Cape</option>
-              <option value="Northern Cape">Northern Cape</option>
-              <option value="Eastern Cape">Eastern Cape</option>
-              <option value="Free State">Free State</option>
-              <option value="Gauteng">Gauteng</option>
-              <option value="KwaZulu-Natal">KwaZulu-Natal</option>
-              <option value="Limpopo">Limpopo</option>
-              <option value="Mpumalanga">Mpumalanga</option>
-              <option value="North West">North West</option>
-            </select>
+            <label>Province *
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="globe-africa" size="lg"/></span>
+                <select class="input-group-field" name="businessProvince" required id="province">
+                  <option value="">Please select your Province</option>
+                  <option value="Western Cape">Western Cape</option>
+                  <option value="Northern Cape">Northern Cape</option>
+                  <option value="Eastern Cape">Eastern Cape</option>
+                  <option value="Free State">Free State</option>
+                  <option value="Gauteng">Gauteng</option>
+                  <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                  <option value="Limpopo">Limpopo</option>
+                  <option value="Mpumalanga">Mpumalanga</option>
+                  <option value="North West">North West</option>
+                </select>
+              </div>
             </label>
           </div>
           <div class="cell large-3">
             <label>Office Contact Number *
-              <input maxlength="12" name="businessContactNumber" type="tel" placeholder="Enter your office contact" required>
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="phone" size="lg"/></span>
+                <input maxlength="12" class="input-group-field" name="businessContactNumber" type="tel" placeholder="Format 27xx12345678" required>
+              </div>
             </label>
           </div>
           <div class="cell large-3">
             <label>Cellphone Number *
-              <input maxlength="12" name="businessCellphone" type="tel" placeholder="Enter your cellphone number" required>
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="mobile" size="lg"/></span>
+                <input maxlength="12" class="input-group-field" name="businessCellphone" type="tel" required>
+              </div>
             </label>
           </div>
           <div class="cell large-6">
             <label>Email Address *
-              <input type="email" name="businessEmailAddress" placeholder="Enter your email address" required>
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="at" size="lg"/></span>
+                <input type="email" class="input-group-field" name="businessEmailAddress"  required>
+              </div>
             </label>
           </div>
           <!-- delivery address -->
           <div class="cell medium-12 delivery-address">
             <label>Delivery Address <a id="copy-business-address">Use my business address</a>
-              <textarea type="text" name="deliveryAddress" placeholder="Please enter your delivery address." maxlength="200" rows="2"></textarea>
+              <textarea type="text" name="deliveryAddress" maxlength="200" rows="2"></textarea>
             </label>
           </div>
           <div class="cell medium-3 small-6">
             <label>Postal Code
-              <input maxlength="4" name="deliveryPostalCode" type="number" placeholder="Enter your postal code">
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="envelope" size="lg"/></span>
+                <input maxlength="4" class="input-group-field" name="deliveryPostalCode" type="number" >
+              </div>
             </label>
           </div>
           <div class="cell medium-9 small-12">
-            <label>Province <select name="deliveryProvince" id="deliveryProvince">
-              <option value=""></option>
-              <option value="Western Cape">Western Cape</option>
-              <option value="Northern Cape">Northern Cape</option>
-              <option value="Eastern Cape">Eastern Cape</option>
-              <option value="Free State">Free State</option>
-              <option value="Gauteng">Gauteng</option>
-              <option value="KwaZulu-Natal">KwaZulu-Natal</option>
-              <option value="Limpopo">Limpopo</option>
-              <option value="Mpumalanga">Mpumalanga</option>
-              <option value="North West">North West</option>
-            </select>
+            <label>Province
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="globe-africa" size="lg"/></span>
+                <select class="input-group-field" name="deliveryProvince" id="delivery-province">
+                  <option value="">Please select your Province</option>
+                  <option value="Western Cape">Western Cape</option>
+                  <option value="Northern Cape">Northern Cape</option>
+                  <option value="Eastern Cape">Eastern Cape</option>
+                  <option value="Free State">Free State</option>
+                  <option value="Gauteng">Gauteng</option>
+                  <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                  <option value="Limpopo">Limpopo</option>
+                  <option value="Mpumalanga">Mpumalanga</option>
+                  <option value="North West">North West</option>
+                </select>
+              </div>
             </label>
           </div>
           <!-- meta data -->
-          <div class="cell large-2">
-            <label>Seating Capacity <select name="seatingCount" id="">
-              <option value="0-50">0 - 50 pax</option>
-              <option value="51-100">51 - 100 pax</option>
-              <option value="Over 100">Over 100 pax</option>
-            </select>
+          <div class="cell large-3">
+            <label>Seating Capacity *
+              <div class="input-group">
+                <span class="input-group-label"><font-awesome-icon icon="users" size="lg"/></span>
+                <select class="input-group-field" name="seatingCount" id="seating-count" required>
+                  <option value=""></option>
+                  <option value="0-50">0 - 50 pax</option>
+                  <option value="51-100">51 - 100 pax</option>
+                  <option value="Over 100">Over 100 pax</option>
+                </select>
+              </div>
             </label>
           </div>
-          <div class="cell large-4">
-            <label>Estimated Monthly Purchases
+          <div class="cell large-3">
+            <label>Estimated Monthly Purchases *
               <div class="input-group">
                 <span class="input-group-label">R</span>
                 <input required class="input-group-field" type="number" name="estimatedMonthlySpend"/>
               </div>
             </label>
           </div>
-          <div class="cell large-4">
-            <label>Credit Required
+          <div class="cell large-3">
+            <label>Credit Required *
               <div class="input-group">
                 <span class="input-group-label">R</span>
                 <input required class="input-group-field" type="number" name="creditLimit"/>
