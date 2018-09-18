@@ -66,7 +66,6 @@ export default class AppController extends Vue {
     router.beforeEach((to: any, from: any, next: any) => {
       this.inClass = this.getStepId(to.name) > this.getStepId(from.name) ? 'slideInRight' : 'slideInLeft';
       this.outClass = this.getStepId(to.name) > this.getStepId(from.name) ? 'slideOutLeft' : 'slideOutRight';
-      this.markStepComplete({target: {id: from.name}});
       next();
     });
   }
@@ -82,21 +81,11 @@ export default class AppController extends Vue {
     }, {});
   }
 
-  public markStepInvalid(_data: any, ...args: []): void {
-    console.log();
-    console.log(this.formToJson(args[0][0]));
-    this.concatFormData(_data.target.id, this.formToJson(args[0][0]));
-    let _foundStep = this.findStepInArray(_data);
-    _foundStep.valid = false;
-    _foundStep.complete = false;
-  }
-
   private concatFormData(_formId: string, _data: any): void {
     if (!this.allFormData[_formId]) {
       this.allFormData[_formId] = {}
     }
     Object.assign(this.allFormData[_formId], _data);
-    console.log(this.allFormData);
   }
 
   private findStepInArray(_data: any): any {
@@ -105,24 +94,45 @@ export default class AppController extends Vue {
     });
   }
 
-  public markStepValid(_data: any): void {
-    console.log(`${_data.target.id} was marked valid`);
+  private handleFileUpload(_data: any): any {
+    if (!this.allFormData.uploadedFiles) {
+      this.allFormData.uploadedFiles = {};
+    }
+    this.allFormData.uploadedFiles[`${_data.target.id}`] = _data.target.files[0];
+    console.log(this.allFormData);
+  }
+
+  public markStepInvalid(_data: any, ...args: []): void {
+
+  }
+
+  public markStepValid(_data: any, ...args: []): void {
+    this.concatFormData(_data.target.id, this.formToJson(args[0][0]));
+    let _foundStep = this.findStepInArray(_data);
+    _foundStep.valid = true;
+    _foundStep.complete = true;
   }
 
   public markStepComplete(_data: any): void {
-    console.log(`${_data.target.id} was marked done`);
-    this.findStepInArray(_data).complete = true;
+    console.log(`${_data.target.id} was marked complete`);
+    let _currentStep: number = this.getStepId(_data.target.id);
+    this.$router.push(`step${_currentStep + 1}`);
   }
 
   public markStepIncomplete(_data: any): void {
-    console.log(`${_data.target.id} was marked not done`);
+
   }
 
   public saveStepData(_data: any): void {
     console.log(_data.target.id);
   }
 
-  get fetchAllFormData():any {
+  public postForm(_data:any):void {
+    console.log("posting form to database");
+    console.log(this.allFormData);
+  }
+
+  get fetchAllFormData(): any {
     return this.allFormData;
   }
 }

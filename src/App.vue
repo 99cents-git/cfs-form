@@ -6,7 +6,7 @@
 
     <div id="pages">
       <transition name="fade" class="animated" :enter-active-class="inClass" :leave-active-class="outClass">
-        <router-view v-on:step-invalid="markStepInvalid" v-on:step-valid="markStepValid" v-on:step-done="markStepComplete" v-on:step-notdone="markStepIncomplete" v-on:on-submit="saveStepData" :form-data="fetchAllFormData"/>
+        <router-view v-on:step-invalid="markStepInvalid" v-on:step-valid="markStepValid" v-on:step-done="markStepComplete" v-on:file-upload="handleFileUpload" v-on:step-notdone="markStepIncomplete" v-on:on-submit="saveStepData" v-on:end-form="postForm" :form-data="fetchAllFormData"/>
       </transition>
     </div>
   </div>

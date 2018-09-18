@@ -8,17 +8,18 @@ ul {
     font-size: 90%;
 
     span {
+      min-width: 15px;
+      display: inline-block;
       margin-right: 10px;
+
+      &.done {
+        color: green;
+      }
+
+      &.not-done {
+        color: red;
+      }
     }
   }
 }
 
-label.checkbox-label {
-  line-height: 150%;
-}
-
-input[type=checkbox] {
-  margin: 0 0.5rem 0 0;
-  transform: scale(1.4);
-  transform-origin: 0 0;
-}
