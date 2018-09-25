@@ -1,7 +1,8 @@
 import {Vue} from 'vue-property-decorator';
 import Component from "vue-class-component";
 import router from './router';
-
+import AwsIntegration from './abstract/AWSController';
+import uuid from 'uuid';
 
 declare var $: any;
 
@@ -63,6 +64,7 @@ export default class AppController extends Vue {
   };
 
   public mounted(): void {
+    AwsIntegration.init();
     router.beforeEach((to: any, from: any, next: any) => {
       this.inClass = this.getStepId(to.name) > this.getStepId(from.name) ? 'slideInRight' : 'slideInLeft';
       this.outClass = this.getStepId(to.name) > this.getStepId(from.name) ? 'slideOutLeft' : 'slideOutRight';
@@ -86,6 +88,7 @@ export default class AppController extends Vue {
       this.allFormData[_formId] = {}
     }
     Object.assign(this.allFormData[_formId], _data);
+    console.log(this.allFormData);
   }
 
   private findStepInArray(_data: any): any {
@@ -116,7 +119,11 @@ export default class AppController extends Vue {
   public markStepComplete(_data: any): void {
     console.log(`${_data.target.id} was marked complete`);
     let _currentStep: number = this.getStepId(_data.target.id);
-    this.$router.push(`step${_currentStep + 1}`);
+    if (_currentStep < this.underlyingData.status.length) {
+      this.$router.push(`step${_currentStep + 1}`);
+    } else {
+      this.postForm();
+    }
   }
 
   public markStepIncomplete(_data: any): void {
@@ -127,9 +134,40 @@ export default class AppController extends Vue {
     console.log(_data.target.id);
   }
 
-  public postForm(_data:any):void {
-    console.log("posting form to database");
-    console.log(this.allFormData);
+  public postForm(): void {
+    // Create UUID for entry
+    let _entryUUID: string = uuid.v4();
+
+    // Create AWS Dynamo Object
+    let _postFormData: any = {};
+    Object.assign(_postFormData, this.allFormData.step1);
+    Object.assign(_postFormData, this.allFormData.step2);
+    Object.assign(_postFormData, this.allFormData.step3);
+
+    if (this.allFormData.step4) {
+      Object.assign(_postFormData, this.allFormData.step4);
+    }
+
+    let tableItem: any = {};
+
+    Object.keys(_postFormData).forEach(_key => {
+      if (_key && _postFormData[_key] && _key.indexOf('submit') === -1) {
+        tableItem[_key] = {S: _postFormData[_key]}
+      }
+    });
+
+    tableItem.ApplicationId = {S: _entryUUID};
+
+    // Sort documents
+
+    tableItem.idDocument = {S: _entryUUID + '_' + this.allFormData.uploadedFiles['idDocumentUpload'].name};
+    tableItem.residenceDocument = {S: _entryUUID + '_' + this.allFormData.uploadedFiles['residenceUpload'].name};
+    tableItem.bankDocument = {S: _entryUUID + '_' + this.allFormData.uploadedFiles['bankUpload'].name};
+
+    AwsIntegration.postToDatabase('CFSApplications', tableItem);
+    AwsIntegration.uploadFile(this.allFormData.uploadedFiles['idDocumentUpload'], _entryUUID, 'cfs-form-documents');
+    AwsIntegration.uploadFile(this.allFormData.uploadedFiles['residenceUpload'], _entryUUID, 'cfs-form-documents');
+    AwsIntegration.uploadFile(this.allFormData.uploadedFiles['bankUpload'], _entryUUID, 'cfs-form-documents');
   }
 
   get fetchAllFormData(): any {
